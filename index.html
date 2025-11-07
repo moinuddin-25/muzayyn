@@ -6,64 +6,7 @@
     <title>Alex Johnson | 3D Link-in-Bio</title>
     <meta name="description" content="Connect with Alex Johnson - Digital Creator, Tech Enthusiast. 3D interactive link portfolio.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #6C63FF;
-            --primary-dark: #564FD8;
-            --primary-light: #8B85FF;
-            --accent: #FF6584;
-            --dark: #1A1A2E;
-            --darker: #0F0F1A;
-            --light: #FFFFFF;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: var(--light);
-            min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            perspective: 1000px;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            transform-style: preserve-3d;
-            margin-top: 20px;
-        }
-
-        /* 3D Profile Card */
-        .profile-card {
-            background: linear-gradient(145deg, rgba(45, 43, 85, 0.95), rgba(30, 29, 63, 0.95));
-            border-radius: 24px;
-            padding: 50px 30px 35px;
-            text-align: center;
-            margin-bottom: 40px;
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-            transform-style: preserve-3d;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+    
         .profile-card::before {
             content: '';
             position: absolute;
@@ -539,4 +482,5 @@
         });
     </script>
 </body>
+
 </html>
