@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Johnson | 3D Link-in-Bio</title>
+    <meta name="description" content="Connect with Alex Johnson - Digital Creator, Tech Enthusiast. 3D interactive link portfolio.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #564FD8;
+            --primary-light: #8B85FF;
+            --accent: #FF6584;
+            --dark: #1A1A2E;
+            --darker: #0F0F1A;
+            --light: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            perspective: 1000px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            transform-style: preserve-3d;
+            margin-top: 20px;
+        }
+
+        /* 3D Profile Card */
+        .profile-card {
+            background: linear-gradient(145deg, rgba(45, 43, 85, 0.95), rgba(30, 29, 63, 0.95));
+            border-radius: 24px;
+            padding: 50px 30px 35px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px) rotateX(5deg) scale(1.02);
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-card:hover::before {
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+
+        /* 3D Profile Image */
+        .profile-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            border: 4px solid var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 50px;
+            box-shadow: 
+                0 15px 35px rgba(108, 99, 255, 0.4),
+                inset 0 2px 0 rgba(255,255,255,0.2);
+            transform: translateZ(40px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: rotate(45deg) scale(1.2);
+            transition: all 0.6s;
+        }
+
+        .profile-image:hover {
+            transform: translateZ(50px) scale(1.08);
+            box-shadow: 
+                0 20px 45px rgba(108, 99, 255, 0.6),
+                inset 0 2px 0 rgba(255,255,255,0.3);
+        }
+
+        .profile-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, var(--light), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+            transform: translateZ(30px);
+            line-height: 1.2;
+        }
+
+        .profile-bio {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            transform: translateZ(25px);
+            font-weight: 300;
+        }
+
+        /* 3D Links Container */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform-style: preserve-3d;
+        }
+
+        /* 3D Link Cards */
+        .link-card {
+            background: linear-gradient(145deg, rgba(45, 43, 85, 0.95), rgba(30, 29, 63, 0.95));
+            border-radius: 18px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: var(--light);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .link-card:hover {
+            transform: translateY(-8px) translateZ(25px) rotateX(5deg);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        /* 3D Icons */
+        .link-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 
+                0 10px 25px rgba(108, 99, 255, 0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            transform: translateZ(30px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-icon::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg) scale(1.5);
+            transition: all 0.6s;
+        }
+
+        .link-card:hover .link-icon {
+            transform: translateZ(40px) scale(1.1);
+            box-shadow: 
+                0 15px 30px rgba(108, 99, 255, 0.6),
+                inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+
+        .link-text {
+            flex: 1;
+            transform: translateZ(20px);
+        }
+
+        .link-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, var(--light), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .link-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.4;
+        }
+
+        .link-arrow {
+            color: var(--primary-light);
+            font-size: 1.3rem;
+            transform: translateZ(20px);
+            transition: var(--transition);
+        }
+
+        .link-card:hover .link-arrow {
+            color: var(--accent);
+            transform: translateZ(30px) translateX(5px);
+        }
+
+        /* Platform-specific 3D effects */
+        .instagram .link-icon { background: linear-gradient(135deg, #E4405F, #C13584); }
+        .twitter .link-icon { background: linear-gradient(135deg, #1DA1F2, #0D8BD9); }
+        .linkedin .link-icon { background: linear-gradient(135deg, #0A66C2, #084D96); }
+        .github .link-icon { background: linear-gradient(135deg, #333, #000); }
+        .youtube .link-icon { background: linear-gradient(135deg, #FF0000, #CC0000); }
+        .tiktok .link-icon { background: linear-gradient(135deg, #000000, #333333); }
+        .website .link-icon { background: linear-gradient(135deg, var(--accent), #FF4D6D); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            transform: translateZ(15px);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 3D Background Elements */
+        .bg-element {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.15;
+            z-index: -1;
+            animation: float 20s infinite linear;
+            filter: blur(20px);
+        }
+
+        .bg-1 { width: 400px; height: 400px; top: 10%; left: 10%; animation-delay: 0s; }
+        .bg-2 { width: 300px; height: 300px; bottom: 20%; right: 15%; animation-delay: -7s; }
+        .bg-3 { width: 250px; height: 250px; top: 60%; left: 5%; animation-delay: -14s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            33% { transform: translateY(-30px) rotate(120deg) scale(1.1); }
+            66% { transform: translateY(15px) rotate(240deg) scale(0.9); }
+            100% { transform: translateY(0px) rotate(360deg) scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            body {
+                padding: 30px 15px;
+                align-items: flex-start;
+            }
+            
+            .container {
+                margin-top: 10px;
+            }
+            
+            .profile-card {
+                padding: 40px 25px 30px;
+                margin-bottom: 30px;
+            }
+            
+            .profile-image {
+                width: 120px;
+                height: 120px;
+                font-size: 45px;
+                margin-bottom: 25px;
+            }
+            
+            .profile-name {
+                font-size: 1.9rem;
+                margin-bottom: 15px;
+            }
+            
+            .profile-bio {
+                font-size: 1.05rem;
+            }
+            
+            .link-card {
+                padding: 20px 18px;
+                gap: 18px;
+            }
+            
+            .link-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.4rem;
+            }
+        }
+
+        /* 3D Animation on load */
+        @keyframes fadeInUp3D {
+            from {
+                opacity: 0;
+                transform: translateY(40px) rotateX(-15deg) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0) scale(1);
+            }
+        }
+
+        .profile-card, .link-card {
+            animation: fadeInUp3D 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+        }
+
+        .profile-card {
+            animation-delay: 0.1s;
+        }
+
+        .link-card:nth-child(1) { animation-delay: 0.2s; }
+        .link-card:nth-child(2) { animation-delay: 0.3s; }
+        .link-card:nth-child(3) { animation-delay: 0.4s; }
+        .link-card:nth-child(4) { animation-delay: 0.5s; }
+        .link-card:nth-child(5) { animation-delay: 0.6s; }
+        .link-card:nth-child(6) { animation-delay: 0.7s; }
+        .link-card:nth-child(7) { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <!-- 3D Background Elements -->
+    <div class="bg-element bg-1"></div>
+    <div class="bg-element bg-2"></div>
+    <div class="bg-element bg-3"></div>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-image">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 class="profile-name" contenteditable="true">Alex Johnson</h1>
+            <p class="profile-bio" contenteditable="true">Digital Creator | Tech Enthusiast | 3D Design Specialist</p>
+        </div>
+
+        <div class="links-container">
+            <a href="#" class="link-card instagram" onclick="trackClick('instagram')">
+                <div class="link-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Instagram</div>
+                    <div class="link-description">3D visuals & behind-the-scenes</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card twitter" onclick="trackClick('twitter')">
+                <div class="link-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">Twitter</div>
+                    <div class="link-description">Thoughts on 3D design & tech</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card linkedin" onclick="trackClick('linkedin')">
+                <div class="link-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">LinkedIn</div>
+                    <div class="link-description">3D design career & projects</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card github" onclick="trackClick('github')">
+                <div class="link-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">GitHub</div>
+                    <div class="link-description">3D code projects & experiments</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card youtube" onclick="trackClick('youtube')">
+                <div class="link-icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">YouTube</div>
+                    <div class="link-description">3D tutorials & design process</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card tiktok" onclick="trackClick('tiktok')">
+                <div class="link-icon">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">TikTok</div>
+                    <div class="link-description">Quick 3D design tips & tricks</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="#" class="link-card website" onclick="trackClick('website')">
+                <div class="link-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="link-text">
+                    <div class="link-title">3D Portfolio</div>
+                    <div class="link-description">Interactive 3D work showcase</div>
+                </div>
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>© <span id="current-year">2023</span> 3D Link Portfolio | Designed with depth</p>
+        </div>
+    </div>
+
+    <script>
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Click tracking function
+        function trackClick(platform) {
+            console.log(`3D Link clicked: ${platform} at ${new Date().toISOString()}`);
+            
+            // Add 3D click effect
+            const card = event.currentTarget;
+            card.style.transform = 'translateY(-12px) translateZ(30px) rotateX(10deg) scale(1.02)';
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 300);
+            
+            // For demo - prevent actual navigation
+            event.preventDefault();
+        }
+
+        // 3D mouse move effect
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.container');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Save profile edits
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileName = document.querySelector('.profile-name');
+            const profileBio = document.querySelector('.profile-bio');
+            
+            profileName.addEventListener('blur', function() {
+                localStorage.setItem('profileName', this.textContent);
+            });
+            
+            profileBio.addEventListener('blur', function() {
+                localStorage.setItem('profileBio', this.textContent);
+            });
+            
+            if (localStorage.getItem('profileName')) {
+                profileName.textContent = localStorage.getItem('profileName');
+            }
+            
+            if (localStorage.getItem('profileBio')) {
+                profileBio.textContent = localStorage.getItem('profileBio');
+            }
+        });
+    </script>
+</body>
+</html>
